@@ -100,6 +100,7 @@ protected:
 	CGPIOPin m_GPIOButton2;
 	CGPIOPin m_GPIOButton3;
 	CGPIOPin m_GPIOButton4;
+	CGPIOPin m_GPIOButton5;
 };
 
 class CControlSimpleEncoder : public CControl

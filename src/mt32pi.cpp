@@ -1113,6 +1113,14 @@ void CMT32Pi::ProcessButtonEvent(const TButtonEvent& Event)
 	{
 		SetMasterVolume(m_nMasterVolume + 1);
 	}
+
+	// EXTRA BUTTON TEST
+	if (Event.Button == TButton::Button5)
+	{
+		LCDLog(TLCDLogType::Notice, "5:th button %s", Event.bPressed ? "PRESSED" : "RELEASED");
+		return;
+	}
+
 }
 
 void CMT32Pi::SwitchSynth(TSynth NewSynth)
