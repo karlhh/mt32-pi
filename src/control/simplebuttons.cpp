@@ -32,7 +32,8 @@ constexpr u8 GPIOPinButton5 = 25;
 constexpr u8 ButtonMask = 1 << static_cast<u8>(TButton::Button1) |
 			  1 << static_cast<u8>(TButton::Button2) |
 			  1 << static_cast<u8>(TButton::Button3) |
-			  1 << static_cast<u8>(TButton::Button4);
+			  1 << static_cast<u8>(TButton::Button4) |
+			  1 << static_cast<u8>(TButton::Button5);
 
 CControlSimpleButtons::CControlSimpleButtons(TEventQueue& pEventQueue)
 	: CControl(pEventQueue),
