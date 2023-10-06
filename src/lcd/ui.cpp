@@ -40,6 +40,7 @@ CUserInterface::CUserInterface()
 	: m_State(TState::None),
 	  m_nStateTime(0),
 	  m_bIsScrolling(false),
+	  m_bIsInSFMenu(false),
 	  m_nCurrentScrollOffset(0),
 	  m_nCurrentSpinnerChar(0),
 	  m_CurrentImage(TImage::None),
