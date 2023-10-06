@@ -1058,6 +1058,16 @@ void CMT32Pi::ProcessEventQueue()
 
 void CMT32Pi::ProcessButtonEvent(const TButtonEvent& Event)
 {
+
+	if (Event.Button == TButton::EncoderButton)
+	{
+		LCDLog(TLCDLogType::Notice, "5:th button %s", Event.bPressed ? "PRESSED" : "RELEASED");
+		return;
+	}
+
+	if (!Event.bPressed)
+		return;
+
 	if (Event.Button == TButton::Button5 && !Event.bRepeat)
 	{
 		// LCDLog(TLCDLogType::Notice, "Enc. button %s", Event.bPressed ? "PRESSED" : "RELEASED");
@@ -1067,9 +1077,6 @@ void CMT32Pi::ProcessButtonEvent(const TButtonEvent& Event)
 			m_UserInterface.DisplaySFMenu();
 		return;
 	}
-
-	if (!Event.bPressed)
-		return;
 
 	if (Event.Button == TButton::Button1 && !Event.bRepeat)
 	{
@@ -1116,13 +1123,6 @@ void CMT32Pi::ProcessButtonEvent(const TButtonEvent& Event)
 	else if (Event.Button == TButton::Button4)
 	{
 		SetMasterVolume(m_nMasterVolume + 1);
-	}
-
-	// EXTRA BUTTON TEST
-	if (Event.Button == TButton::EncoderButton)
-	{
-		LCDLog(TLCDLogType::Notice, "5:th button %s", Event.bPressed ? "PRESSED" : "RELEASED");
-		return;
 	}
 
 }
