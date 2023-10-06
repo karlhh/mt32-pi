@@ -103,6 +103,10 @@ private:
 	TSysExDisplayMessage m_SysExDisplayMessageType;
 	char m_SysExTextBuffer[SyxExTextBufferSize];
 	u8 m_SysExPixelBuffer[SysExPixelBufferSize];
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/main
 
 };
 #endif
