@@ -1058,7 +1058,7 @@ void CMT32Pi::ProcessEventQueue()
 
 void CMT32Pi::ProcessButtonEvent(const TButtonEvent& Event)
 {
-	if (Event.Button == TButton::Button5)
+	if (Event.Button == TButton::Button5 && !Event.bRepeat)
 	{
 		// LCDLog(TLCDLogType::Notice, "Enc. button %s", Event.bPressed ? "PRESSED" : "RELEASED");
 		if (m_UserInterface.IsInSFMenu())
