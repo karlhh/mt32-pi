@@ -37,12 +37,15 @@ CSFMenu::CSFMenu()
       m_nChannel(0),
       m_nPosition(1),
       m_nNewPosition(0),
+      m_bStart(false),
+      m_bStop(false),
       m_nTimeOut(5000)
 {
 }
 
-void CSFMenu::Update(CLCD& LCD, CSynthBase& Synth, unsigned int nTicks)
+bool CSFMenu::Update(CLCD& LCD, CSynthBase& Synth, unsigned int nTicks)
 {
+
     if (m_nPosition != m_nNewPosition  || m_bStart)
     {
         m_nPosition = m_nNewPosition;
@@ -58,6 +61,12 @@ void CSFMenu::Update(CLCD& LCD, CSynthBase& Synth, unsigned int nTicks)
 
 
     }
+    if (m_bStop)
+    {
+        m_bStop=false;
+        return false;
+    }
+    return true;
 }
 
 void CSFMenu::MoveUp(void)
@@ -73,10 +82,15 @@ void CSFMenu::MoveDown(void)
 void CSFMenu::Select(void)
 {
     // TODO: Send midi message to fluid synth
+    Stop();
 }
 
 void CSFMenu::Start(void)
 {
     m_bStart = true;
+}
+void CSFMenu::Stop(void)
+{
+    m_bStop = true;
 }
 

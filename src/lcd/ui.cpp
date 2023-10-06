@@ -85,11 +85,12 @@ void CUserInterface::Update(CLCD& LCD, CSynthBase& Synth, unsigned int nTicks)
 {
 	// Soundfont Menu
 	if (m_State==TState::DisplayingSFMenu)
-	{
-		//if (!m_SFMenu)
-		//	m_SFMenu = CSFMenu();
-		
-		m_SFMenu.Update(LCD, Synth, nTicks);
+	{		
+		if (!m_SFMenu.Update(LCD, Synth, nTicks))
+		{
+			m_State = TState::None;
+			m_bIsInSFMenu = false;
+		}
 		return;
 	}
 
