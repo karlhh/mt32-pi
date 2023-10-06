@@ -1058,9 +1058,13 @@ void CMT32Pi::ProcessEventQueue()
 
 void CMT32Pi::ProcessButtonEvent(const TButtonEvent& Event)
 {
-	if (Event.Button == TButton::EncoderButton)
+	if (Event.Button == TButton::Button5)
 	{
-		LCDLog(TLCDLogType::Notice, "Enc. button %s", Event.bPressed ? "PRESSED" : "RELEASED");
+		// LCDLog(TLCDLogType::Notice, "Enc. button %s", Event.bPressed ? "PRESSED" : "RELEASED");
+		if (m_UserInterface.IsInMenu())
+			m_UserInterface.m_SFMenu.Select();
+		else
+			m_UserInterface.DisplayMenu();
 		return;
 	}
 
@@ -1115,7 +1119,7 @@ void CMT32Pi::ProcessButtonEvent(const TButtonEvent& Event)
 	}
 
 	// EXTRA BUTTON TEST
-	if (Event.Button == TButton::Button5)
+	if (Event.Button == TButton::EncoderButton)
 	{
 		LCDLog(TLCDLogType::Notice, "5:th button %s", Event.bPressed ? "PRESSED" : "RELEASED");
 		return;

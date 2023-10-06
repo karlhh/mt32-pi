@@ -26,6 +26,8 @@
 #include <cstdio>
 
 #include "lcd/ui.h"
+#include "lcd/sfmenu.h"
+
 #include "synth/synthbase.h"
 #include "utility.h"
 
@@ -44,7 +46,8 @@ CUserInterface::CUserInterface()
 	  m_SystemMessageTextBuffer{'\0'},
 	  m_SysExDisplayMessageType(TSysExDisplayMessage::Roland),
 	  m_SysExTextBuffer{'\0'},
-	  m_SysExPixelBuffer{0}
+	  m_SysExPixelBuffer{0},
+	  m_SFMenu(nullptr)
 {
 }
 
@@ -80,6 +83,16 @@ bool CUserInterface::UpdateScroll(CLCD& LCD, unsigned int nTicks)
 
 void CUserInterface::Update(CLCD& LCD, CSynthBase& Synth, unsigned int nTicks)
 {
+	// Soundfont Menu
+	if (m_State==TState::DisplayingSFMenu)
+	{
+		//if (!m_SFMenu)
+		//	m_SFMenu = CSFMenu();
+		
+		m_SFMenu.Update(LCD, Synth, nTicks);
+		return;
+	}
+
 	// Update message scrolling
 	m_bIsScrolling = UpdateScroll(LCD, nTicks);
 
@@ -140,6 +153,13 @@ void CUserInterface::Update(CLCD& LCD, CSynthBase& Synth, unsigned int nTicks)
 		Synth.UpdateLCD(LCD, nTicks);
 
 	LCD.Flip();
+}
+
+void CUserInterface::DisplaySFMenu()
+{
+	m_State = TState::DisplayingSFMenu;
+	m_bIsInSFMenu = true;
+	m_SFMenu.Start();
 }
 
 void CUserInterface::ShowSystemMessage(const char* pMessage, bool bSpinner)
