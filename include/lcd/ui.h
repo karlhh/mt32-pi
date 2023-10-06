@@ -27,6 +27,7 @@
 
 #include "lcd/barchars.h"
 #include "lcd/lcd.h"
+#include "lcd/sfmenu.h"
 
 class CSynthBase;
 
@@ -43,6 +44,7 @@ public:
 
 	void Update(CLCD& LCD, CSynthBase& Synth, unsigned int nTicks);
 
+	void DisplaySFMenu();
 	void ShowSystemMessage(const char* pMessage, bool bSpinner = false);
 	void ClearSpinnerMessage();
 	void DisplayImage(TImage Image);
@@ -52,9 +54,12 @@ public:
 	void ExitPowerSavingMode();
 
 	bool IsScrolling() const { return m_bIsScrolling; }
+	bool IsInSFMenu() const {return m_bIsInSFMenu; }
 
 	static u8 CenterMessageOffset(CLCD& LCD, const char* pMessage);
 	static void DrawChannelLevels(CLCD& LCD, u8 nBarHeight, float* pChannelLevels, float* pPeakLevels, u8 nChannels, bool bDrawBarBases);
+
+	CSFMenu m_SFMenu;
 
 private:
 	enum class TState
@@ -65,6 +70,7 @@ private:
 		DisplayingImage,
 		DisplayingSysExText,
 		DisplayingSysExBitmap,
+		DisplayingSFMenu,
 		EnteringPowerSavingMode,
 		InPowerSavingMode
 	};
@@ -89,6 +95,7 @@ private:
 	TState m_State;
 	unsigned m_nStateTime;
 	bool m_bIsScrolling;
+	bool m_bIsInSFMenu;
 	size_t m_nCurrentScrollOffset;
 	size_t m_nCurrentSpinnerChar;
 	TImage m_CurrentImage;
@@ -96,6 +103,6 @@ private:
 	TSysExDisplayMessage m_SysExDisplayMessageType;
 	char m_SysExTextBuffer[SyxExTextBufferSize];
 	u8 m_SysExPixelBuffer[SysExPixelBufferSize];
-};
 
+};
 #endif
