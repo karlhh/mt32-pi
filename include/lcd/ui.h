@@ -44,7 +44,7 @@ public:
 
 	void Update(CLCD& LCD, CSynthBase& Synth, unsigned int nTicks);
 
-	void DisplaySFMenu();
+	void DisplaySFMenu(void);
 	void ShowSystemMessage(const char* pMessage, bool bSpinner = false);
 	void ClearSpinnerMessage();
 	void DisplayImage(TImage Image);

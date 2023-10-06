@@ -1061,10 +1061,10 @@ void CMT32Pi::ProcessButtonEvent(const TButtonEvent& Event)
 	if (Event.Button == TButton::Button5)
 	{
 		// LCDLog(TLCDLogType::Notice, "Enc. button %s", Event.bPressed ? "PRESSED" : "RELEASED");
-		if (m_UserInterface.IsInMenu())
+		if (m_UserInterface.IsInSFMenu())
 			m_UserInterface.m_SFMenu.Select();
 		else
-			m_UserInterface.DisplayMenu();
+			m_UserInterface.DisplaySFMenu();
 		return;
 	}
 

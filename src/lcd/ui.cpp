@@ -46,8 +46,7 @@ CUserInterface::CUserInterface()
 	  m_SystemMessageTextBuffer{'\0'},
 	  m_SysExDisplayMessageType(TSysExDisplayMessage::Roland),
 	  m_SysExTextBuffer{'\0'},
-	  m_SysExPixelBuffer{0},
-	  m_SFMenu(nullptr)
+	  m_SysExPixelBuffer{0}
 {
 }
 
@@ -155,7 +154,7 @@ void CUserInterface::Update(CLCD& LCD, CSynthBase& Synth, unsigned int nTicks)
 	LCD.Flip();
 }
 
-void CUserInterface::DisplaySFMenu()
+void CUserInterface::DisplaySFMenu(void)
 {
 	m_State = TState::DisplayingSFMenu;
 	m_bIsInSFMenu = true;
