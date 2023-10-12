@@ -26,9 +26,9 @@
 constexpr u8 GPIOPinButton1 = 17;
 constexpr u8 GPIOPinButton2 = 27;
 
-constexpr u8 GPIOPinEncoderButton = 4;
-constexpr u8 GPIOPinEncoderCLK    = 22;
-constexpr u8 GPIOPinEncoderDAT    = 23;
+constexpr u8 GPIOPinEncoderButton = 23;
+constexpr u8 GPIOPinEncoderCLK    = 24;
+constexpr u8 GPIOPinEncoderDAT    = 25;
 
 constexpr u8 ButtonMask = 1 << static_cast<u8>(TButton::Button1) |
 			  1 << static_cast<u8>(TButton::Button2) |

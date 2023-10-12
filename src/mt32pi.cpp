@@ -1050,7 +1050,10 @@ void CMT32Pi::ProcessEventQueue()
 				break;
 
 			case TEventType::Encoder:
-				SetMasterVolume(m_nMasterVolume + Event.Encoder.nDelta);
+				if (m_pSoundFontSynth && m_UserInterface.IsInSFMenu())
+					m_UserInterface.m_SFMenu.Move(Event.Encoder.nDelta);
+				else
+					SetMasterVolume(m_nMasterVolume + Event.Encoder.nDelta);
 				break;
 		}
 	}
@@ -1059,16 +1062,16 @@ void CMT32Pi::ProcessEventQueue()
 void CMT32Pi::ProcessButtonEvent(const TButtonEvent& Event)
 {
 
-	if (Event.Button == TButton::EncoderButton)
-	{
-		LCDLog(TLCDLogType::Notice, "5:th button %s", Event.bPressed ? "PRESSED" : "RELEASED");
-		return;
-	}
+	// if (Event.Button == TButton::EncoderButton)
+	// {
+	// 	LCDLog(TLCDLogType::Notice, "5:th button %s", Event.bPressed ? "PRESSED" : "RELEASED");
+	// 	return;
+	// }
 
 	if (!Event.bPressed)
 		return;
 
-	if (Event.Button == TButton::Button5 && !Event.bRepeat)
+	if (Event.Button == TButton::EncoderButton && !Event.bRepeat)
 	{
 		// LCDLog(TLCDLogType::Notice, "Enc. button %s", Event.bPressed ? "PRESSED" : "RELEASED");
 		if (m_UserInterface.IsInSFMenu())
@@ -1118,11 +1121,17 @@ void CMT32Pi::ProcessButtonEvent(const TButtonEvent& Event)
 	}
 	else if (Event.Button == TButton::Button3)
 	{
-		SetMasterVolume(m_nMasterVolume - 1);
+		if (m_UserInterface.IsInSFMenu())
+			m_UserInterface.m_SFMenu.MoveDown();
+		else
+			SetMasterVolume(m_nMasterVolume - 1);
 	}
 	else if (Event.Button == TButton::Button4)
 	{
-		SetMasterVolume(m_nMasterVolume + 1);
+		if (m_UserInterface.IsInSFMenu())
+			m_UserInterface.m_SFMenu.MoveUp();
+		else
+			SetMasterVolume(m_nMasterVolume + 1);
 	}
 
 }

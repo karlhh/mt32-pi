@@ -25,9 +25,11 @@
 
 
 #include <circle/types.h>
+#include <fluidsynth.h>
 
 #include "lcd/barchars.h"
 #include "lcd/lcd.h"
+
 
 class CSynthBase;
 
@@ -45,6 +47,7 @@ public:
 	bool Update(CLCD& LCD, CSynthBase& Synth, unsigned int nTicks);
     void MoveUp(void);
     void MoveDown(void);
+    void Move(s8 delta);
     void Select(void);
     void Start(void);
     void Stop(void);
@@ -61,10 +64,11 @@ private:
     // private properties
     TMenu m_ActiveMenu;
     u8 m_nChannel;
-    u8 m_nPosition;
-    u8 m_nNewPosition;
+    s8 m_nPosition;
+    s8 m_nNewPosition;
     bool m_bStart;
     bool m_bStop;
+    bool m_bSelect;
     unsigned int m_nTimeOut;
     unsigned int m_nLastActionTime;
 

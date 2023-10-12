@@ -610,3 +610,12 @@ bool CSoundFontSynth::ParseYamahaSysEx(const u8* pData, size_t nSize)
 
 	return false;
 }
+
+
+// const char* CSoundFontSynth::GetPresetName(int prenum)
+// {
+// 	// fluid_preset_t* preset = fluid_sfont_get_preset( fluid_synth_get_sfont(m_pSynth, 0), 0, prenum);
+// 	// if (preset)
+// 	// 	return fluid_preset_get_name(preset);
+// 	return NULL;
+// }

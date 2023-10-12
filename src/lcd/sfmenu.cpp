@@ -25,10 +25,13 @@
 
 #include <cstdio>
 
+#include <fluidsynth.h>
+
 #include "lcd/ui.h"
 #include "lcd/sfmenu.h"
 
 #include "synth/synthbase.h"
+#include "synth/soundfontsynth.h"
 #include "utility.h"
 
 
@@ -39,27 +42,50 @@ CSFMenu::CSFMenu()
       m_nNewPosition(0),
       m_bStart(false),
       m_bStop(false),
+      m_bSelect(false),
       m_nTimeOut(5000)
 {
 }
 
 bool CSFMenu::Update(CLCD& LCD, CSynthBase& Synth, unsigned int nTicks)
 {
+    static u8 start = 0;
 
     if (m_nPosition != m_nNewPosition  || m_bStart)
     {
+
         m_nPosition = m_nNewPosition;
         m_bStart = false;
 
-        // TODO: Update screen
+        if (m_nPosition < -100) m_nPosition = 127;
+        if (m_nPosition < 0) m_nPosition = 0;
+
+        if (m_nPosition > (start + 3))
+            start = m_nPosition - 3;
+        if (m_nNewPosition < start)
+            start = m_nPosition;
+        //u8 maxlength = 16;
+        //char* tempname[maxlength];
+
         LCD.Clear(false);
-        LCD.DrawChar('M', 0, 0);
-        LCD.DrawChar('E', 0, 1);
-        LCD.DrawChar('N', 0, 2);
-        LCD.DrawChar('U', 0, 3);
+
+        for (u8 i=0; i<4; i++)
+        {
+            // MLI-Possibly
+            //LCD.Print(dynamic_cast<CSoundFontSynth&>(Synth).GetPresetName(start+i), 1, i, true, false);
+            // if selected position, display something special
+            if ((i+start) == m_nPosition)
+                LCD.DrawChar('>',0,i);
+        }
+
         LCD.Flip();
 
-
+        m_nNewPosition = m_nPosition;
+    }
+    if (m_bSelect)
+    {
+        m_bSelect=false;
+        Synth.HandleMIDIShortMessage(0xC000 & m_nPosition);
     }
     if (m_bStop)
     {
@@ -78,10 +104,14 @@ void CSFMenu::MoveDown(void)
 {
     m_nNewPosition--;
 }
+void CSFMenu::Move(s8 delta)
+{
+    m_nNewPosition += delta;
+}
 
 void CSFMenu::Select(void)
 {
-    // TODO: Send midi message to fluid synth
+    m_bSelect = true;
     Stop();
 }
 
