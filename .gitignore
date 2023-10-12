@@ -54,3 +54,4 @@ sdcard/*
 .vscode/*
 fluidsynth.h
 Kernel.mk
+MT32-pi.code-workspace

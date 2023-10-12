@@ -52,7 +52,7 @@ public:
 	bool SwitchSoundFont(size_t nIndex);
 	size_t GetSoundFontIndex() const { return m_nCurrentSoundFontIndex; }
 	CSoundFontManager& GetSoundFontManager() { return m_SoundFontManager; }
-	//const char* GetPresetName(int prenum);
+	const char* GetPresetName(int prenum);
 
 private:
 	bool Reinitialize(const char* pSoundFontPath, const TFXProfile* pFXProfile);

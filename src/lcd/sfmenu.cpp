@@ -72,7 +72,7 @@ bool CSFMenu::Update(CLCD& LCD, CSynthBase& Synth, unsigned int nTicks)
         for (u8 i=0; i<4; i++)
         {
             // MLI-Possibly
-            //LCD.Print(dynamic_cast<CSoundFontSynth&>(Synth).GetPresetName(start+i), 1, i, true, false);
+            LCD.Print(dynamic_cast<CSoundFontSynth&>(Synth).GetPresetName(start+i), 1, i, true, false);
             // if selected position, display something special
             if ((i+start) == m_nPosition)
                 LCD.DrawChar('>',0,i);
@@ -85,7 +85,7 @@ bool CSFMenu::Update(CLCD& LCD, CSynthBase& Synth, unsigned int nTicks)
     if (m_bSelect)
     {
         m_bSelect=false;
-        Synth.HandleMIDIShortMessage(0xC000 & m_nPosition);
+        Synth.HandleMIDIShortMessage(m_nPosition<<8 | 0xC0);
     }
     if (m_bStop)
     {
