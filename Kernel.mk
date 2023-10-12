@@ -51,7 +51,10 @@ EXTRACLEAN	+=	$(INIHHOME)/ini.d \
 
 include $(CIRCLEHOME)/Rules.mk
 
-CFLAGS		+=	-Werror -Wextra -Wno-unused-parameter
+CFLAGS		+=	-Werror -Wextra -Wno-unused-parameter 
+
+# IF GCC v12.x, partial array out of bounds error
+CFLAGS		+= -Warray-bounds=0 
 
 CFLAGS		+=	-I "$(NEWLIBDIR)/include" \
 			-I $(STDDEF_INCPATH) \

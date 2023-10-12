@@ -53,3 +53,4 @@ sdcard/*
 .DS_Store
 .vscode/*
 fluidsynth.h
+Kernel.mk
